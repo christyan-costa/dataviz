@@ -5,9 +5,11 @@ from random_walk import RandomWalk
 # Keep making new walks, as long as the program is active.
 while True:
     # Make a random walk.
-    rw = RandomWalk()
+    rw = RandomWalk(100_000)
     rw.fill_walk()
 
+    # Set the size of the plotting window.
+    plt.figure(figsize=(10, 6))
     # Plot the points in the random walk.
     point_numbers = list(range(rw.num_points))
     plt.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
