@@ -1,8 +1,9 @@
 import json
 
-import pygal_maps_world.maps 
+from  pygal_maps_world.maps import World
+
 from country_codes import get_country_code
-import pygal_maps_world
+# import pygal_maps_world
  
 # import pygal
 
@@ -21,18 +22,25 @@ for pop_dict in pop_data:
         if code:
             cc_populations[code] = population 
 
-wm = pygal_maps_world.maps.World()
+# Group the countries into 3 population levels.
+cc_pops_1, cc_pops_2, cc_pops_3 = {}, {}, {}
+for cc, pop in cc_populations.items():
+    if pop < 10_000_000:
+        cc_pops_1[cc] = pop
+    elif pop < 1_000_000_000:
+        cc_pops_2[cc] = pop
+    else:
+        cc_pops_3[cc] = pop
+
+# Print how many countries are in each level.
+print(f"number of countries -- population group")
+print(f"{len(cc_pops_1)} -- less than 10 million")
+print(f"{len(cc_pops_2)} -- between 10 million and 1 billion")
+print(f"{len(cc_pops_3)} -- more than 1 billion")
+
+wm = World()
 wm._title = 'World population in 2010, by Country'
-wm.add('2010', cc_populations)
+wm.add('0-10m', cc_pops_1)
+wm.add('10m-1bn', cc_pops_2)
+wm.add('>1bn', cc_pops_3)
 wm.render_to_file('world_population.svg')
-
-
-# worldmap_chart = pygal.maps.world.World()
-# worldmap_chart.title = 'Some countries'
-# worldmap_chart.add('F countries', ['fr', 'fi'])
-# worldmap_chart.add('M countries', ['ma', 'mc', 'md', 'me', 'mg',
-#                                    'mk', 'ml', 'mm', 'mn', 'mo',
-#                                    'mr', 'mt', 'mu', 'mv', 'mw',
-#                                    'mx', 'my', 'mz'])
-# worldmap_chart.add('U countries', ['ua', 'ug', 'us', 'uy', 'uz'])
-# worldmap_chart.render()
