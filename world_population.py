@@ -1,11 +1,8 @@
 import json
 
-from  pygal_maps_world.maps import World
-
 from country_codes import get_country_code
-# import pygal_maps_world
- 
-# import pygal
+from pygal_maps_world.maps import World
+from pygal.style import RotateStyle as RS, LightColorizedStyle as LCS
 
 # Load the data into a list.
 filename = 'population_data.json'
@@ -38,7 +35,8 @@ print(f"{len(cc_pops_1)} -- less than 10 million")
 print(f"{len(cc_pops_2)} -- between 10 million and 1 billion")
 print(f"{len(cc_pops_3)} -- more than 1 billion")
 
-wm = World()
+wm_style = RS('#336699', base_style=LCS)
+wm = World(style=wm_style)
 wm._title = 'World population in 2010, by Country'
 wm.add('0-10m', cc_pops_1)
 wm.add('10m-1bn', cc_pops_2)
