@@ -7,7 +7,3 @@ def get_country_code(country_name):
             return code
     # If the country is not found, return None.
     return None
-
-print(get_country_code('Andorra'))
-print(get_country_code('Brazil'))
-print(get_country_code('Afghanistan'))
